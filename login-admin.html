@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso privado | Eurban</title>
+    <link rel="stylesheet" href="admin-tienda.css">
+</head>
+<body class="login-page">
+    <main class="login-card">
+        <p class="eyebrow">Área privada</p>
+        <h1>Acceso Eurban.</h1>
+        <p>Esta zona es solo para gestionar el catálogo.</p>
+        <form id="login-form">
+            <label for="admin-password">Contraseña</label>
+            <input id="admin-password" type="password" autocomplete="current-password" required>
+            <button type="submit">Entrar al panel</button>
+            <p class="login-error" id="login-error" role="alert"></p>
+        </form>
+        <a class="back-store" href="catalogo.html">Volver a la tienda</a>
+    </main>
+    <script src="login-admin.js"></script>
+</body>
+</html>

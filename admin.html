@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Eurban | Administración</title>
+	<link rel="stylesheet" href="admin-tienda.css">
+</head>
+<body>
+	<header class="admin-header">
+		<a href="index.html" class="brand">EURBAN</a>
+		<div>
+			<span class="admin-label">Panel de administración</span>
+			<a href="catalogo.html" class="store-link">Ver tienda ↗</a>
+			<button class="logout-button" id="logout-button" type="button">Cerrar sesión</button>
+		</div>
+	</header>
+
+	<main class="admin-main">
+		<section class="intro">
+			<p class="eyebrow">Gestión de catálogo</p>
+			<h1>Administra tus prendas.</h1>
+			<p>Agrega fotos, precios y detalles. Todo lo que publiques aparecerá en el catálogo de Eurban.</p>
+		</section>
+
+		<section class="admin-grid">
+			<form class="product-form" id="product-form">
+				<h2>Agregar prenda</h2>
+				<label>Foto de la prenda
+					<input id="product-image" type="file" accept="image/jpeg,image/png,image/webp" required>
+				</label>
+				<label>Nombre
+					<input id="product-name" type="text" placeholder="Ej. Chaqueta Eurban" required>
+				</label>
+				<label>Categoría
+					<input id="product-category" type="text" placeholder="Ej. Chaquetas" required>
+				</label>
+				<label>Precio
+					<input id="product-price" type="number" min="0" step="0.01" placeholder="89.00" required>
+				</label>
+				<label>Descripción
+					<textarea id="product-description" rows="4" placeholder="Describe la prenda..."></textarea>
+				</label>
+				<button type="submit">Publicar prenda</button>
+				<p class="form-message" id="form-message" role="status"></p>
+			</form>
+
+			<section class="products-panel">
+				<div class="panel-heading">
+					<div>
+						<p class="eyebrow">Inventario público</p>
+						<h2>Prendas publicadas</h2>
+					</div>
+					<strong id="product-count">0</strong>
+				</div>
+				<div class="product-list" id="product-list"></div>
+			</section>
+		</section>
+	</main>
+
+	<script src="admin-tienda.js"></script>
+	<script src="admin-logout.js"></script>
+</body>
+</html>
