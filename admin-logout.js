@@ -1,4 +1,4 @@
 document.querySelector('#logout-button').addEventListener('click', async () => {
-    await fetch('/api/admin/logout', { credentials: 'same-origin', method: 'POST' });
+    if (window.eurbanSupabase) await window.eurbanSupabase.auth.signOut();
     window.location.replace('login-admin.html');
 });

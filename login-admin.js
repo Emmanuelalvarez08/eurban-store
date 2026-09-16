@@ -1,4 +1,5 @@
 const form = document.querySelector('#login-form');
+const email = document.querySelector('#admin-email');
 const password = document.querySelector('#admin-password');
 const error = document.querySelector('#login-error');
 const submitButton = form.querySelector('button');
@@ -9,13 +10,9 @@ form.addEventListener('submit', async (event) => {
     error.textContent = '';
 
     try {
-        const response = await fetch('/api/admin/login', {
-            body: JSON.stringify({ password: password.value }),
-            credentials: 'same-origin',
-            headers: { 'Content-Type': 'application/json' },
-            method: 'POST'
-        });
-        if (!response.ok) throw new Error('Contraseña incorrecta.');
+        if (!window.eurbanSupabase) throw new Error('Configura Supabase antes de iniciar sesión.');
+        const { error: loginError } = await window.eurbanSupabase.auth.signInWithPassword({ email: email.value.trim(), password: password.value });
+        if (loginError) throw new Error('Correo o contraseña incorrectos.');
         window.location.replace('admin.html');
     } catch (loginError) {
         error.textContent = loginError.message || 'No se pudo iniciar sesión.';

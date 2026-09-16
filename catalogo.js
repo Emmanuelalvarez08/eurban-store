@@ -1,6 +1,7 @@
 const productGrid = document.querySelector('#product-grid');
 const itemCount = document.querySelector('#item-count');
 const productsKey = 'eurbanProducts';
+const supabaseClient = window.eurbanSupabase;
 const defaultProducts = [
     { id: 'sample-jacket', name: 'Chaqueta Eurban', category: 'Abrigos', price: '89.00', imageClass: 'image-jacket' },
     { id: 'sample-shirt', name: 'Camisa Lino', category: 'Camisas', price: '74.00', imageClass: 'image-dress' },
@@ -66,6 +67,22 @@ function renderPublishedProducts(products) {
     updateItemCount();
 }
 
+async function getRemoteProducts() {
+    const { data, error } = await supabaseClient
+        .from('productos')
+        .select('id, nombre, categoria, precio, descripcion, imagen_path')
+        .order('creado_en', { ascending: false });
+
+    if (error) throw error;
+    return data.map((product) => ({
+        ...product,
+        name: product.nombre,
+        category: product.categoria,
+        price: product.precio,
+        image: supabaseClient.storage.from('product-images').getPublicUrl(product.imagen_path).data.publicUrl
+    }));
+}
+
 function revealProductCards() {
     const cards = document.querySelectorAll('.product-card');
 
@@ -86,14 +103,9 @@ function revealProductCards() {
 }
 
 async function loadProducts() {
-    try {
-        const response = await fetch('/api/productos');
-        if (!response.ok) throw new Error('API unavailable');
-        renderPublishedProducts(await response.json());
-    } catch {
-        renderPublishedProducts(getLocalProducts());
-    }
+    const products = supabaseClient ? await getRemoteProducts() : getLocalProducts();
+    renderPublishedProducts(products);
     revealProductCards();
 }
 
-loadProducts();
+loadProducts().catch(() => renderPublishedProducts(getLocalProducts()));

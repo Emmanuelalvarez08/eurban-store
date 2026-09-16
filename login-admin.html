@@ -12,6 +12,8 @@
         <h1>Acceso Eurban.</h1>
         <p>Esta zona es solo para gestionar el catálogo.</p>
         <form id="login-form">
+            <label for="admin-email">Correo administrador</label>
+            <input id="admin-email" type="email" autocomplete="username" required>
             <label for="admin-password">Contraseña</label>
             <input id="admin-password" type="password" autocomplete="current-password" required>
             <button type="submit">Entrar al panel</button>
@@ -19,6 +21,9 @@
         </form>
         <a class="back-store" href="catalogo.html">Volver a la tienda</a>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabase-client.js"></script>
     <script src="login-admin.js"></script>
 </body>
 </html>
